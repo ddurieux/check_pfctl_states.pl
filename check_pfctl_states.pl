@@ -47,20 +47,20 @@ foreach my $line (@split) {
 }
 
 if ($current == -1 || $limit == -1) {
-   print "PF states UNKNOWN - no data found |states=0;0;0;0;0 percent=0;0;0;0;0\n";
+   print "PF UNKNOWN - no data found |states=0;0;0;0;0 percent=0;0;0;0;0\n";
    exit $exit_codes{'UNKNOWN'};
 } else {
    my $percentage_current = int(($current * 100) / $limit);
    my $warn_val = int(($warn_level * $limit) / 100);
    my $crit_val = int(($crit_level * $limit) / 100);
    if ($percentage_current >= $crit_level ) {
-      print "PF states CRITICAL - $current ($percentage_current%) |states=$current;$warn_val;$crit_val;0;$limit
+      print "PF CRITICAL - states: $current ($percentage_current% - limit: $limit) |states=$current;$warn_val;$crit_val;0;$limit percent=$percentage_current;$warn_level;$crit_level;0;100\n";
       exit $exit_codes{'CRITICAL'};
    } elsif ($percentage_current >= $warn_level) {
-      print "PF states WARNING - $current ($percentage_current%) |states=$current;$warn_val;$crit_val;0;$limit p
+      print "PF WARNING - states: $current ($percentage_current% - limit: $limit) |states=$current;$warn_val;$crit_val;0;$limit percent=$percentage_current;$warn_level;$crit_level;0;100\n";
       exit $exit_codes{'WARNING'};
    } else {
-      print "PF states OK - $current ($percentage_current%) |states=$current;$warn_val;$crit_val;0;$limit percen
+      print "PF OK - states: $current ($percentage_current% - limit: $limit) |states=$current;$warn_val;$crit_val;0;$limit percent=$percentage_current;$warn_level;$crit_level;0;100\n";
       exit $exit_codes{'OK'};
    }
 }
